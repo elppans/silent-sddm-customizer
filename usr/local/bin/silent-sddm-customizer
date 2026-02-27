@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/etc/profile.d/silent-sddm-switch_theme.sh "$@"
+

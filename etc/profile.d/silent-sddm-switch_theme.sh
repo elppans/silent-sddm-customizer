@@ -27,7 +27,8 @@ active_line=$(grep -n "^[[:space:]]*ConfigFile=" "$FILE" | cut -d: -f1)
 
 # Comment on the active line
 if [[ -n "$active_line" ]]; then
-    sed -i "${active_line}s/^/  #/" "$FILE"
+    content=$(sed "${active_line}s/^/  #/" "$FILE")
+    echo "$content" > "$FILE"
     echo "$MSG_COMMENTED"
 fi
 
@@ -35,7 +36,8 @@ fi
 random_line=$(printf "%s\n" "${configs[@]}" | shuf -n 1 | cut -d: -f1)
 
 # Uncomment on the chosen line
-sed -i "${random_line}s/^#//" "$FILE"
+content=$(sed "${random_line}s/^#//" "$FILE")
+echo "$content" > "$FILE"
 
 # Displays final result
 echo "$MSG_CHANGED"

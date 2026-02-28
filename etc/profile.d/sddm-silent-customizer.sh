@@ -7,6 +7,7 @@
 
 # Path to the metadata.desktop file
 FILE="/usr/share/sddm/themes/silent/metadata.desktop"
+TMPFILE="/tmp/metadata.desktop"
 
 # Detects system language
 if [[ "$LANG" == pt* ]]; then
@@ -29,7 +30,7 @@ active_line=$(grep -n "^[[:space:]]*ConfigFile=" "$FILE" | cut -d: -f1)
 if [[ -n "$active_line" ]]; then
     # O 's/^/  #/' do seu script original estava adicionando espaços antes do #
     # Vamos usar algo mais limpo:
-    sed "${active_line}s/^/#/" "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+    sed "${active_line}s/^/#/" "$FILE" > "$TMPFILE" && cat "$TMPFILE" > "$FILE"
     echo "$MSG_COMMENTED"
 fi
 
@@ -37,10 +38,9 @@ fi
 random_line=$(printf "%s\n" "${configs[@]}" | shuf -n 1 | cut -d: -f1)
 
 # Uncomment the selected line (removing the # and any spaces around it).
-sed "${random_line}s/^[[:space:]]*#[[:space:]]*//" "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+sed "${random_line}s/^[[:space:]]*#[[:space:]]*//" "$FILE" > "$TMPFILE" && cat "$TMPFILE" > "$FILE"
 
 # Displays final result
 echo "$MSG_CHANGED"
 echo "$MSG_ACTIVE"
 grep "^[[:space:]]*ConfigFile=" "$FILE"
-

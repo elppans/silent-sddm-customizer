@@ -58,8 +58,10 @@ post_install() {
 grep -q sddm /etc/group || groupadd sddm
 groups $USER | grep -q '\bsddm\b' || usermod -aG sddm $USER
 chgrp sddm /usr/share/sddm/themes/silent
+chmod 0755 /usr/share/sddm/themes/silent
 chgrp sddm /usr/share/sddm/themes/silent/metadata.desktop
 chmod 664 /usr/share/sddm/themes/silent/metadata.desktop
+chmod +x /etc/profile.d/silent-sddm-switch_theme.sh
 }
 post_upgrade() {
     post_install

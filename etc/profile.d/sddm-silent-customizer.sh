@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# silent-sddm-customizer - Professional AUR maintainer helper
+# sddm-silent-customizer - Professional AUR maintainer helper
 # Copyright (c) 2026 Elppans
 # Licensed under the MIT License.
 # See LICENSE file for details.

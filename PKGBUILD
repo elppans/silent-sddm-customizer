@@ -1,7 +1,7 @@
 # Maintainer: Marcelo K. <marcelo.elven@...>
 # shellcheck disable=all
 
-pkgname=silent-sddm-customizer
+pkgname=sddm-silent-customizer
 pkgver=1.0.0
 pkgrel=1
 pkgdesc="Scripts para rotacionar temas do Silent SDDM e converter avatares de usuário."

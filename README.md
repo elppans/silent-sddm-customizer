@@ -1,10 +1,10 @@
-# 🐧 Silent SDDM Customizer (Arch Linux)
+# 🐧 SDDM Silent Customizer (Arch Linux)
 
 Scripts para automatizar a rotação de temas do pacote **Silent SDDM** e gerenciar avatares de usuário de forma simples e eficiente no Arch Linux.
 
 ## ✨ Funcionalidades
 
-* **`silent-sddm-switch_theme.sh`**: Seleciona aleatoriamente um dos estilos do tema Silent a cada login.
+* **`sddm-silent-customizer.sh`**: Seleciona aleatoriamente um dos estilos do tema Silent a cada login.
 * **`faceconv`**: Utilitário para converter qualquer imagem para o formato exato exigido pelo SDDM (`.face.icon`), seguindo os padrões técnicos de 8-bit RGBA e redimensionamento 1:1.
 
 ---
@@ -31,8 +31,8 @@ sudo chmod 664 /usr/share/sddm/themes/silent/metadata.desktop
 Mova o script de rotação para o diretório de inicialização do sistema:
 
 ```bash
-sudo cp silent-sddm-switch_theme.sh /etc/profile.d/
-sudo chmod +x /etc/profile.d/silent-sddm-switch_theme.sh
+sudo cp sddm-silent-customizer.sh /etc/profile.d/
+sudo chmod +x /etc/profile.d/sddm-silent-customizer.sh
 
 ```
 

@@ -8,6 +8,9 @@ pkgdesc="Scripts para rotacionar temas do Silent SDDM e converter avatares de us
 arch=('any')
 license=('MIT')
 depends=('sddm' 'sddm-silent-theme' 'imagemagick' 'bash')
+optdepends=(
+	'nautilus-python: Para uso do menú de contexto integrado no Nautilus'
+)
 provides=("$pkgname")
 conflicts=("$pkgname")
 url="https://github.com/elppans/${pkgname}"

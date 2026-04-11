@@ -58,9 +58,15 @@ else
 fi
 
 log "Verificando linhas ConfigFile..."
-if ! cat "$FILE" | grep "^ConfigFile" | grep '^#' ; then
-    sed "/default.conf/! s/^ConfigFile/#ConfigFile/" "$FILE" > "$TMPFILE"
-    cat "$TMPFILE" > "$FILE"
+
+# Conta quantas linhas ConfigFile estão descomentadas
+COUNT=$(grep -c "^ConfigFile" "$FILE")
+
+if [ "$COUNT" -gt 1 ]; then
+    log "Encontradas $COUNT linhas ativas. Corrigindo..."
+    sed -i -e "/^ConfigFile/ s/^/#/" -e "/default.conf/ s/^#//" "$FILE"
+else
+    log "Configuração já está correta ou nenhuma linha encontrada."
 fi
 
 # Get all lines with "ConfigFile="

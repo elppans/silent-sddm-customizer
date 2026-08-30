@@ -1,17 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# sddm-silent-customizer - Professional AUR maintainer helper
+# sddm-silent-random - Professional AUR maintainer helper
 # Copyright (c) 2026 Elppans
 # Licensed under the MIT License.
 # See LICENSE file for details.
 # Nome do comando/script
+
+SDDM_THEME_DIR="/usr/share/sddm/themes/silent"
+
+show_help() {
+	cat <<EOF
+Usage: sddm-silent-random [OPTION]
+
+Randomly rotates the SilentSDDM theme style on each login.
+
+Options:
+	-t, --test    Run the SilentSDDM theme's own test.sh (visual preview)
+	-h, --help    Show this help message and exit
+
+With no options, the script selects a random style for the Silent SDDM
+theme and applies it, so it takes effect on the next login.
+EOF
+}
+
+case "$1" in
+-t | --test)
+	if [[ -d "$SDDM_THEME_DIR" ]]; then
+		cd "$SDDM_THEME_DIR" || exit 1
+		./test.sh
+		exit $?
+	else
+		echo "Error: directory not found: $SDDM_THEME_DIR" >&2
+		exit 1
+	fi
+	;;
+-h | --help)
+	show_help
+	exit 0
+	;;
+esac
 
 # Path to the metadata.desktop file
 FILE="/usr/share/sddm/themes/silent/metadata.desktop"
 TMPFILE="/tmp/metadata.desktop"
 
 # Envia o arquivo metadata.desktop para /tmp
-cat "$FILE" > "$TMPFILE"
+cat "$FILE" >"$TMPFILE"
 
 # 1. Comenta a linha que está atualmente ativa (se houver)
 # Procura por linhas que começam com ConfigFile e adiciona o #
@@ -21,7 +55,7 @@ sed -i 's/^[[:space:]]*ConfigFile/# ConfigFile/' "$TMPFILE"
 mapfile -t LINES < <(grep -n "^#[[:space:]]*ConfigFile" "$TMPFILE" | cut -d: -f1)
 
 # 3. Sorteia um índice aleatório do array de linhas
-RANDOM_INDEX=$(( RANDOM % ${#LINES[@]} ))
+RANDOM_INDEX=$((RANDOM % ${#LINES[@]}))
 SELECTED_LINE=${LINES[$RANDOM_INDEX]}
 
 # 4. Descomenta a linha sorteada
@@ -29,6 +63,6 @@ SELECTED_LINE=${LINES[$RANDOM_INDEX]}
 sed -i "${SELECTED_LINE}s/^#[[:space:]]*//" "$TMPFILE"
 
 # Retorna o arquivo metadata.desktop para o diretorio de temas
-cat "$TMPFILE" > "$FILE"
+cat "$TMPFILE" >"$FILE"
 
 echo "Configuração atualizada! Linha ativada: $(sed -n "${SELECTED_LINE}p" "$TMPFILE")"

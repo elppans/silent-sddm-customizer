@@ -1,7 +1,7 @@
 # Maintainer: Marcelo K. <marcelo.elven@...>
 # shellcheck disable=all
 
-pkgname=sddm-silent-customizer
+pkgname=sddm-silent-random
 pkgver=1.0.0
 pkgrel=1
 pkgdesc="Scripts para rotacionar temas do Silent SDDM e converter avatares de usuário."
@@ -64,7 +64,7 @@ chgrp sddm /usr/share/sddm/themes/silent
 chmod 0755 /usr/share/sddm/themes/silent
 chgrp sddm /usr/share/sddm/themes/silent/metadata.desktop
 chmod 664 /usr/share/sddm/themes/silent/metadata.desktop
-chmod +x /etc/profile.d/silent-sddm-switch_theme.sh
+chmod +x /etc/profile.d/${pkgname}.sh
 }
 post_upgrade() {
     post_install

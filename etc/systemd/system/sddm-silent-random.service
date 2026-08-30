@@ -1,0 +1,12 @@
+[Unit]
+Description=Randomly rotates the SilentSDDM theme
+After=display-manager.service
+Requires=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sddm-silent-random
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target
